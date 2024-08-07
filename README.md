@@ -1,1 +1,1 @@
-# digikanban
+# DigiKanban
