@@ -158,7 +158,38 @@ class moddigikanban extends DolibarrModules
         	$conf->digikanban=new stdClass();
         	$conf->digikanban->enabled=0;
         }
-		$this->dictionaries=array();
+
+        $this->dictionaries = [
+            'langs' => 'digikanban@digikanban',
+            'tabname' => [
+                MAIN_DB_PREFIX . 'c_tasks_columns',
+            ],
+            'tablib' => [
+                'TasksColumns',
+            ],
+            'tabsql' => [
+                'SELECT t.rowid as rowid, t.ref, t.label, t.lowerpercent, t.upperpercent, t.position, t.active FROM ' . MAIN_DB_PREFIX . 'c_tasks_columns as t',
+            ],
+            'tabsqlsort' => [
+                'position ASC',
+            ],
+            'tabfield' => [
+                'ref,label,lowerpercent,upperpercent,position',
+            ],
+            'tabfieldvalue' => [
+                'ref,label,lowerpercent,upperpercent,position',
+            ],
+            'tabfieldinsert' => [
+                'ref,label,lowerpercent,upperpercent,position',
+            ],
+            'tabrowid' => [
+                'rowid',
+            ],
+            'tabcond' => [
+                $conf->digikanban->enabled,
+            ]
+        ];
+
         /* Example:
         if (! isset($conf->digikanban->enabled)) $conf->digikanban->enabled=0;	// This is to avoid warnings
         $this->dictionaries=array(
@@ -375,7 +406,6 @@ class moddigikanban extends DolibarrModules
 	{
 		global $conf, $langs;
 		$langs->load('digikanban@digikanban');
-		$sqlm = array();
 
 		dol_include_once('/digikanban/class/digikanban.class.php');
 		$digikanban = new digikanban($this->db);
@@ -385,7 +415,27 @@ class moddigikanban extends DolibarrModules
 
 		$digikanban->initThedigikanbanModule($this->version);
 
-		return $this->_init($sqlm, $options);
+        if ($this->error > 0) {
+			setEventMessages('', $this->errors, 'errors');
+			return -1; // Do not activate module if error 'not allowed' returned when loading module SQL queries (the _load_table run sql with run_sql with the error allowed parameter set to 'default')
+		}
+
+        $sql = [];
+        $result = $this->_load_tables('/digikanban/sql/');
+
+        if ($result < 0) {
+			return -1;
+		} // Do not activate module if error 'not allowed' returned when loading module SQL queries (the _load_table run sql with run_sql with the error allowed parameter set to 'default')
+
+        dolibarr_set_const($this->db, 'DIGIKANBAN_VERSION', $this->version, 'chaine', 0, '', $conf->entity);
+        dolibarr_set_const($this->db, 'DIGIKANBAN_DB_VERSION', $this->version, 'chaine', 0, '', $conf->entity);
+
+        // Permissions
+        $this->remove($options);
+
+        $result = $this->_init($sql, $options);
+
+		return $result;
 	}
 
 	/**
