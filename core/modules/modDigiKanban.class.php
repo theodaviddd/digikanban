@@ -247,6 +247,23 @@ class modDigiKanban extends DolibarrModules
         $this->rights[$r][4] = 'adminpage';
         $this->rights[$r][5] = 'read';
 
+		/* KANBAN PERMISSSIONS */
+		$this->rights[$r][0] = $this->numero . sprintf('%02d', $r + 1); // Permission id (must not be already used)
+		$this->rights[$r][1] = $langs->transnoentities('ReadObjects',$langs->transnoentities('KanbanMin')); // Permission label
+		$this->rights[$r][4] = 'kanban'; // In php code, permission will be checked by test if ($user->rights->digiquali->level1->level2)
+		$this->rights[$r][5] = 'read'; // In php code, permission will be checked by test if ($user->rights->digiquali->level1->level2)
+		$r++;
+		$this->rights[$r][0] = $this->numero . sprintf('%02d', $r + 1); // Permission id (must not be already used)
+		$this->rights[$r][1] = $langs->transnoentities('CreateObjects', $langs->transnoentities('KanbanMin')); // Permission label
+		$this->rights[$r][4] = 'kanban'; // In php code, permission will be checked by test if ($user->rights->digiquali->level1->level2)
+		$this->rights[$r][5] = 'write'; // In php code, permission will be checked by test if ($user->rights->digiquali->level1->level2)
+		$r++;
+		$this->rights[$r][0] = $this->numero . sprintf('%02d', $r + 1); // Permission id (must not be already used)
+		$this->rights[$r][1] = $langs->transnoentities('DeleteObjects', $langs->transnoentities('KanbanMin')); // Permission label
+		$this->rights[$r][4] = 'kanban'; // In php code, permission will be checked by test if ($user->rights->digiquali->level1->level2)
+		$this->rights[$r][5] = 'delete'; // In php code, permission will be checked by test if ($user->rights->digiquali->level1->level2)
+		$r++;
+
         // Main menu entries to add
         $this->menu = [];
         $r = 0;
@@ -282,6 +299,36 @@ class modDigiKanban extends DolibarrModules
             'target'   => '',
             'user'     => 0
         ];
+
+		$this->menu[$r++] = [
+			'fk_menu'  => 'fk_mainmenu=digikanban',
+			'type'     => 'top',
+			'titre'    => $langs->trans('DigiKanban'),
+			'prefix'   => '<i class="fas fa-cog pictofixedwidth"></i>',
+			'leftmenu' => 'digikanban',
+			'url'      => '/digikanban/digikanbanindex.php&mainmenu=digikanban',
+			'langs'    => 'digikanban@digikanban',
+			'position' => 1000 + $r,
+			'enabled'  => 1,
+			'perms'    => '$user->rights->digikanban->adminpage->read',
+			'target'   => '',-
+			'user'     => 0
+		];
+
+		$this->menu[$r++] = [
+			'fk_menu'  => 'fk_mainmenu=digikanban',
+			'type'     => 'left',
+			'titre'   => $langs->trans('NewDigiKanban'),
+			'prefix'   => '<i class="fas fa-plus pictofixedwidth"></i>',
+			'leftmenu' => 'digikanban',
+			'url'      => '/digikanban/view/kanban_card.php?action=create',
+			'langs'    => 'digikanban@digikanban',
+			'position' => 1000 + $r,
+			'enabled'  => 1,
+			'perms'    => '$user->rights->digikanban->kanban->read',
+			'target'   => '',
+			'user'     => 0
+		];
     }
 
     /**
