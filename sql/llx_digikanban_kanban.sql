@@ -15,6 +15,7 @@
 
 CREATE TABLE llx_digikanban_kanban(
     rowid           integer AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    ref             varchar(128),
     entity          integer default 1,
     date_creation   datetime,
     tms             timestamp,
@@ -23,8 +24,6 @@ CREATE TABLE llx_digikanban_kanban(
     label           varchar(255),
     description     text,
     status          tinyint(4) DEFAULT 1,
-    fk_project      integer,
-    object_type     varchar(255),
-    object_id       integer,
-    fk_user_creat   integer,
+    projectid       integer,
+    fk_user_creat   integer
 ) ENGINE=innodb;

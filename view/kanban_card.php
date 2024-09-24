@@ -41,7 +41,6 @@ require_once DOL_DOCUMENT_ROOT . '/core/lib/images.lib.php';
 
 require_once '../class/kanban.class.php';
 require_once '../lib/digikanban_kanban.lib.php';
-require_once '../../digiquali/lib/digiquali_sheet.lib.php';
 
 // Global variables definitions
 global $conf, $db, $hookmanager, $langs, $user, $langs;
@@ -68,8 +67,7 @@ $extrafields    = new ExtraFields($db);
 // View objects
 $form = new Form($db);
 
-$elementArray = get_sheet_linkable_objects();
-
+$elementArray = get_kanban_linkable_objects();
 $hookmanager->initHooks(array('kanbancard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -112,7 +110,7 @@ if (empty($reshook)) {
 	if (empty($backtopage) || ($cancel && empty($id))) {
 		if (empty($backtopage) || ($cancel && strpos($backtopage, '__ID__'))) {
 			if (empty($id) && (($action != 'add' && $action != 'create') || $cancel)) $backtopage = $backurlforlist;
-			else $backtopage = dol_buildpath('/digikanban/view/kanban/kanban_card.php', 1).'?id='.($id > 0 ? $id : '__ID__');
+			else $backtopage = dol_buildpath('/digikanban/view/kanban_card.php', 1).'?id='.($id > 0 ? $id : '__ID__');
 		}
 	}
 
@@ -157,7 +155,8 @@ if ($action == 'create') {
 
 
 	foreach($elementArray as $linkableElementType => $linkableElement) {
-		if (!empty($linkableElement['conf'] && (!empty(GETPOST('fromtype')) && GETPOST('fromtype') == $linkableElement['link_name']))) {
+
+		if (!empty($linkableElement['conf']) || 1) {
 			$objectArray    = [];
 			$objectPostName = $linkableElement['post_name'];
 			$objectPost     = GETPOST($objectPostName) ?: (GETPOST('fromtype') == $linkableElement['link_name'] ? GETPOST('fromid') : '');

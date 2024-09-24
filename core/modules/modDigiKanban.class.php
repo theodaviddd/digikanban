@@ -95,7 +95,7 @@ class modDigiKanban extends DolibarrModules
         // Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
         $this->module_parts = [
             // Set this to 1 if module has its own trigger directory (core/triggers)
-            'triggers' => 0,
+            'triggers' => 1,
             // Set this to 1 if module has its own login method file (core/login)
             'login' => 0,
             // Set this to 1 if module has its own substitution function file (core/substitutions)
@@ -179,9 +179,14 @@ class modDigiKanban extends DolibarrModules
         }
 
         // Array to add new pages in new tabs
-        $this->tabs = [];
+		$pictopath = dol_buildpath('/custom/digikanban/img/digikanban_color.png', 1);
+		$pictoDigirisk = img_picto('', $pictopath, '', 1, 0, 0, '', 'pictoModule');
 
-        // Dictionaries
+		$this->tabs = [];
+		$this->tabs[] = ['data' => 'control@digiquali:+control:'. $pictoDigirisk .$langs->trans('KanbanList').':digikanban@digikanban:1:/custom/digikanban/view/kanban_list.php?fromid=__ID__&fromtype=control']; // To add a new tab identified by code tabname1
+
+
+		// Dictionaries
         if (! isset($conf->digikanban->enabled))
         {
             $conf->digikanban=new stdClass();
@@ -246,6 +251,7 @@ class modDigiKanban extends DolibarrModules
         $this->rights[$r][1] = $langs->transnoentities('ReadAdminPage', 'DigiKanban');
         $this->rights[$r][4] = 'adminpage';
         $this->rights[$r][5] = 'read';
+		$r++;
 
 		/* KANBAN PERMISSSIONS */
 		$this->rights[$r][0] = $this->numero . sprintf('%02d', $r + 1); // Permission id (must not be already used)
@@ -318,7 +324,22 @@ class modDigiKanban extends DolibarrModules
 		$this->menu[$r++] = [
 			'fk_menu'  => 'fk_mainmenu=digikanban',
 			'type'     => 'left',
-			'titre'   => $langs->trans('NewDigiKanban'),
+			'titre'   => $langs->trans('KanbanList'),
+			'prefix'   => '<i class="fas fa-plus pictofixedwidth"></i>',
+			'leftmenu' => 'digikanban',
+			'url'      => '/digikanban/view/kanban_list.php',
+			'langs'    => 'digikanban@digikanban',
+			'position' => 1000 + $r,
+			'enabled'  => 1,
+			'perms'    => '$user->rights->digikanban->kanban->read',
+			'target'   => '',
+			'user'     => 0
+		];
+
+		$this->menu[$r++] = [
+			'fk_menu'  => 'fk_mainmenu=digikanban',
+			'type'     => 'left',
+			'titre'   => $langs->trans('NewKanban'),
 			'prefix'   => '<i class="fas fa-plus pictofixedwidth"></i>',
 			'leftmenu' => 'digikanban',
 			'url'      => '/digikanban/view/kanban_card.php?action=create',
