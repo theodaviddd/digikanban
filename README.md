@@ -1,52 +1,64 @@
-# DigiKanban sur [DOLIBARR ERP CRM](https://dolibarr.org)
+# DOLIBARR MODULE ADVANCED KANBAN
 
-## Informations
 
-- Numéro du module : 436305
-- Dernière mise à jour : 02/08/2023
-- Éditeur : [Evarisk](https://evarisk.com)
-- Thème : Eldy Menu
-- Licence : GPLv3
-- Disponible sur : Windows - MacOS - Linux
+Advance Kanban is a Dolibarr module usefull to manage elements
 
-## Version
+## LICENSE
+Copyright (C) 2020 ATM Consulting <contact@atm-consulting.fr>
+Advanced Kanban is released under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version (GPL-3+).
 
-- Version :  1.0.0
-- Compatibilité : Dolibarr 16.0.0 - 17.0.2
-- Saturne framework : 1.1.1
+See the [COPYING](https://github.com/Dolibarr/dolibarr/blob/develop/COPYING) file for a full copy of the license.
 
-## Liens
+## INSTALL
 
-- Support & Assistance : [Forum dolibarr.fr](https://dolibarr.fr) / Par mail à technique@evarisk.com
-- Demo : [Demo DigiKanban](https://demodoli.digirisk.com) - ID: demo - Password: demo
-- Documentation : [Wiki DigiKanban](https://wiki.dolibarr.org/index.php/Module_DigiKanban)
-- Projet GitHub : [Projet DigiKanban](https://github.com/Evarisk/digikanban/projects?query=is%3Aopen)
-- Saturne Framework : [Télécharger Saturne](https://dolistore.com/fr/modules/1906-Saturne.html)
-- D'autres modules développés par Evarisk disponibles sur [DoliStore.com](https://dolistore.com)
+### Dependencies
 
-## Fonctionnalités
+None
 
-- Création d'urls raccourcies pour YOURLS et Dolibarr
+### From the ZIP file and GUI interfaces
 
-## Traductions
+- If you get the module in a zip file (like when downloading it from the market place [Dolistore](https://www.dolistore.com)), go into
+  menu ```Home - Setup - Modules - Deploy external module``` and upload the zip file.
 
-- Français
-- Anglais
 
-## Installation
+Note: If this screen tell you there is no custom directory, check your setup is correct:
 
-### Méthode 1 :
+- In your Dolibarr installation directory, edit the ```htdocs/conf/conf.php``` file and check that following lines are not commented:
 
-- Depuis le menu "Déployer/Installer un module externe" de Dolibarr :
-- Glisser l'archive ZIP 'module_digikanban-X.Y.Z' et cliquer sur "ENVOYER FICHIER"
-- Glisser l'archive ZIP 'module_saturne-X.Y.Z' et cliquer sur "ENVOYER FICHIER"
-- Activer le module dans la liste des Modules/Applications installés
+    ```php
+    //$dolibarr_main_url_root_alt ...
+    //$dolibarr_main_document_root_alt ...
+    ```
 
-### Méthode 2 :
+- Uncomment them if necessary (delete the leading ```//```) and assign a sensible value according to your Dolibarr installation
 
-- Dans le dossier "dolibarr/htdocs/custom" copier la ligne suivante :
-``` 
-git clone -b main https://github.com/Evarisk/digikanban.git digikanban
-git clone -b main https://github.com/Evarisk/saturne.git saturne
+  For example :
+
+    - UNIX:
+        ```php
+        $dolibarr_main_url_root_alt = '/custom';
+        $dolibarr_main_document_root_alt = '/var/www/Dolibarr/htdocs/custom';
+        ```
+
+    - Windows:
+        ```php
+        $dolibarr_main_url_root_alt = '/custom';
+        $dolibarr_main_document_root_alt = 'C:/My Web Sites/Dolibarr/htdocs/custom';
+        ```
+
+### From a GIT repository
+
+- Clone the repository in ```$dolibarr_main_document_root_alt/advancedkanban```
+
+```sh
+cd ....../custom
+git clone git@github.com:gitlogin/advancedkanban.git advancedkanban
 ```
-- Activer le module dans la liste des Modules/Applications installés
+
+### <a name="final_steps"></a>Final steps
+
+From your browser:
+
+- Log into Dolibarr as a super-administrator
+- Go to "Setup" -> "Modules"
+- You should now be able to find and enable the module

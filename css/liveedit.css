@@ -1,0 +1,19 @@
+
+/** LIVE EDIT **/
+
+.live-edit{
+	--border-color: rgba(0,0,0,0.1);
+	cursor: text;
+}
+
+.live-edit:hover, .live-edit:focus{
+	outline: 1px solid var(--border-color);
+	background-color: rgba(255,255,255,0.4);
+	box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.1);
+}
+
+.live-edit:focus{
+	min-width: 30px;
+	background-color: #fff;
+	color: #000;
+}

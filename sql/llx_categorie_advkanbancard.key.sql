@@ -14,5 +14,8 @@
 -- along with this program.  If not, see https://www.gnu.org/licenses/.
 
 
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048911,'advancedkanban_advkanbancard','internal','PO','AdvancedKanbanUserRolePO','1','advancedkanban');
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048912,'advancedkanban_advkanbancard','internal','DEV','AdvancedKanbanUserRoleDEV','1','advancedkanban');
+ALTER TABLE llx_categorie_advkanbancard ADD PRIMARY KEY (fk_categorie, fk_advkanbancard);
+ALTER TABLE llx_categorie_advkanbancard ADD KEY idx_categorie_advkanbancard_fk_categorie (fk_categorie);
+ALTER TABLE llx_categorie_advkanbancard ADD KEY idx_categorie_advkanbancard_fk_product (fk_advkanbancard);
+
+ALTER TABLE llx_categorie_advkanbancard ADD CONSTRAINT llx_categorie_advkanbancard_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);

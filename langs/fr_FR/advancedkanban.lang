@@ -1,0 +1,310 @@
+# Copyright (C) 2020 Maxime Kohlhaas <maxime@m-development.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#
+# Générique
+#
+
+# Module label 'ModuleAdvancedKanbanName'
+ModuleAdvancedKanbanName = Kanban Avancé
+# Module description 'ModuleAdvancedKanbanDesc'
+ModuleAdvancedKanbanDesc = Permet l'utilisation d'un kanban avec les documents principaux de Dolibarr
+
+scrumTimePrefillExtraFieldLabel = AdvancedKanban : Utiliser comme préfixe lors de la saisie de temps
+scrumTimePrefillExtraFieldLabelHelp = Lors de la saisie de temps sur une tâche scrum utilisant ce tag alors la note contiendra le libellé du tag
+
+NotEnoughRights = Droit utilisateur insuffisant
+KanbanType=Type
+KanbanStandard=Standard
+
+
+
+#
+# Page d'administration
+#
+AdvancedKanban = Kanban Avancé
+AdvancedKanbanSetup = Configuration du module Kanban avancé
+Settings = Réglages
+AdvancedKanbanSetupPage = Page de configuration du module Projet Scrum
+ScrumSprintExtraFields = Attributs supplémentaires sprints
+AdvKanbanExtraFields = Attributs supplémentaires Kanban
+ScrumUserStoryExtraFields = Attributs supplémentaires User story
+ScrumUserStorySprintExtraFields = Attributs supplémentaires User story planifiés
+AdvKanbanCardExtraFields = Attributs supplémentaires cartes
+NumberingModules = Modèles de numérotation pour %s
+AdvKanbanCardStage = Projet Scrum - Étapes des cartes
+
+
+ADVKANBAN_UNSPLASH_API_KEY = Clé API pour la recherche d'image de fond avec Unsplash
+ADVKANBAN_UNSPLASH_API_KEY_HELP = Aller sur <a target="_blank" href="https://unsplash.com/">https://unsplash.com/</a> et récupérer la "Access Key" de votre application.
+
+ADVKANBAN_SETUPTITLE_KANBAN = Options du kanban
+ADVKANBAN_KANBAN_DISPLAY_STATUS_MODE = Mode d'affichage des statuts sur les cartes
+DoNotDisplayStatus = Ne pas afficher
+DisplayAsDotBadge = Badge sans texte (point)
+DisplayAsBadge = Badge avec texte
+
+
+RequireValidSplitData = Les données de découpe sont invalides
+
+#
+# MENU
+#
+
+ScrumTaskStatusToDo = A faire
+ScrumTaskStatusDone = Terminé
+
+
+ScrumUserStory = User story
+NewScrumUserStory = Nouvelle User story
+ScrumUserStorySprint = User story planifiés
+NewScrumUserStorySprint = Nouvelle plannification
+NewAdvKanban = Nouveau Kanban
+CreateNewAdvKanban = Créer nouveau Kanban
+SelectKanbanClone = Copier la structure du Kanban :
+ConfirmCreateAsk=Voulez-vous vraiment créer un kanban pour <b> %s </b> ?
+DisplayAdvKanban = Afficher Kanban
+
+LeftMenuDeveloperAvailability = Dispo RH
+
+#
+# Page À propos
+#
+About = À propos
+AdvancedKanbanAbout = À propos de Projet Scrum
+AdvancedKanbanAboutPage = Page à propos de Projet Scrum
+
+#
+# Page d'exemple
+#
+MyPageName = Nom de ma page
+
+#
+# Box d'exemple
+#
+MyWidget = Mon widget
+MyWidgetDescription = Description de mon widget
+
+#####################################################
+# ScrumSprint
+#
+SprintLabel = Titre
+SprintTeam = Équipe scrum
+QtyVelocity = Vélocité disponible
+QtyVelocityHelp = Vélocité disponible = Disponibilité x Ratio de vélocité
+QtyPlanned = Qté planifiée
+QtyDone = Qté réalisée
+RefreshVelocity = Mettre à jour la vélocité disponible
+SetToPending = Démarrer
+SetToDone = Terminer
+SetBackToPending = Retour à en cours
+SetBackToValid = Retour à validé
+ScrumSprintUserAdded = %s utilisateurs associés au sprint
+ScrumSprintUserAddedError = Erreur lors de l'association des utilisateurs au sprint
+ScrumSprintUserAddedNobody = Aucun utilisateur associé à l'équipe
+ScrumSprintUserCreateError = Erreur lors de la création  des disponibilités
+ScrumSprintUserNoDevAssociate = Aucun développeur associé à l'équipe
+ScrumSprintUserSqlError = Erreur lors de la requête SQL
+ScrumSprintVelocityCalculated = Vélocité calculée du sprint : %s
+ScrumSprintVelocityCalculatedError = Erreur lors du calcul de la vélocité du sprint : %s
+ScrumSprintQuantitiesCalculatedError = Erreur lors du calcul des quantités du sprint : %s
+AdvancedKanbanUserAvailability = Disponibilité par sprint scrum
+AdvancedKanbanUserVelocityRate = Ratio de vélocité
+AdvancedKanbanUserRole = Rôle Kanban
+AdvancedKanbanUserRoleHelp = Rôle appliqué lorsque l'utilisateur s'affecte à une carte à l'aide de la barre espace
+AdvancedKanbanUserRolePO = Product Owner
+AdvancedKanbanUserRoleDEV = Developer
+AdvKanbanNotDefine = Aucun Kanban pour le Sprint "%s"
+ProductivityReal = Productivité réelle
+ProductivityRealHelp = Productivité calculée sur la base des temps saisies
+ProductivityGoal = Objectif
+ProductivityGoalHelp = Productivité calculée sur la base du temps de vélocité disponible
+QtyLeaveDays = Jours d'absence
+QtyLeaveDaysHelp = La quantité d'absences imprévues en jours
+
+
+
+
+RemainVelocity = Vélocité restante
+RemainVelocityHelp = Basé sur la saisie
+UserWasntPlannedOnSprint = L'utilisateur n'est pas planifié
+UserWasntPlannedOnSprintShort = Non planifié
+
+#
+# ScrumMassSprint
+#
+ScrumMassSprint = Sprints création en masse
+ScrumMassSprintCreated = Nombre de sprints créés : %s
+ScrumMassSprintCreateError = Impossible de créer un sprint
+ScrumMassSprintNumber = Numéro de sprint
+ScrumMassSprintStartSprintWeek = Jours début de sprint
+ScrumMassSprintEnSprintWeek = Jours fin de sprint
+ScrumMassSprintDuration = Durée sprint en semaine
+ScrumMassSprintDurationHelp = "Durée sprint en semaine" défini le nombre de semaine d'un sprint. Par exemple, si un sprint est composé de deux semaines il faudra remplir ce champ avec une valeur de "2".
+ScrumMassSprintParameters = Paramètres création de sprint en masse
+ScrumMassSprintParametersHelp = Aide
+ScrumMassSprintParametersHelpText = Permet de générer des sprints en sélectionnant les équipes souhaitées "Equipe Scrum", dans une période comprise entre "Date début" et "Date fin". <br><br> Le "Numéro de sprint" fera parti du nom du sprint qui sera afficher sous la forme suivante "Sprint 1 NomEquipe". Il sera incrémenté automatiquement. <br><br> "Jours de début de sprint" et "Jours de fin de sprint" détermine les jours de la semaine du sprint et permettra de créer les sprints en suviant cette contrainte. Par exemple, si un sprint commence le lundi et fini un vendredi, le sprint suivant sera créé à la date du prochain lundi. <br><br> "Durée sprint en semaine" défini le nombre de semaine d'un sprint. Par exemple, si un sprint est composé de deux semaines il faudra remplir ce champ avec une valeur de "2".
+
+WarningMissingRealVelocityAccordingToEndDate = Attention il reste seulement %s jour(s) ouvrable(s) hors absences pour produire %s.
+
+#
+# Liste
+#
+massaction_add_to_advkanban = Ajouter à un kanban
+SelectAnKanban = Sélectionner le kanban
+SelectAnKanbanAndGiveLabel = Sélectionner le kanban et nommer les cartes
+SelectAtLeastOneDocument = Sélectionner au moins un document
+KanbanInvalid = Kanban invalide
+xAdvKanbanCardCreatedIn = %s carte(s) créée(s) dans
+ScrumSprint = Sprint
+ScrumSprints = sprints
+NewScrumSprint = Nouveau sprint
+StatusScrumSprintDraft = Brouillon
+StatusScrumSprintValid = Validé
+StatusScrumSprintPending = En cours
+StatusScrumSprintDone = Terminé
+StatusScrumSprintCancelled = Annulé
+
+ListOfScrumSprints = Liste des Sprints
+ProjectPlanningReportMenu = Planning projets
+ListOfSprintProjectPlanning = Planning projets/sprints
+ScrumUserStorySprintShort=Liste des US planifiées
+#####################################################
+# AdvKanbanCard
+#
+Points = Points
+Stage = Étape
+UserPO = Product Owner
+UserDEV = Développeur
+SetBackToReady = Retour en prête
+
+
+#
+# Liste
+#
+AdvKanbanCard = Carte
+AdvKanbanCards = cartes
+AdvKanbanCardTab = Cartes
+NewAdvKanbanCard = Nouvelle carte
+StatusAdvKanbanCardDraft = Brouillon
+StatusAdvKanbanCardReady = A faire
+StatusAdvKanbanCardDone = Terminée
+GoToAdvKanbanCards = Voir les cartes
+
+
+
+
+AvailabilityRate = Ratio de vélocité
+AvailabilityRateHelp = Ratio utilisé pour le caclul de vélocité : Disponibilité × Ratio de vélocité = Vélocité
+ScrumTask = Tâche scrum
+ScrumTasks = Tâches scrum
+ScrumSprintTime = Temps consommé
+
+WillRedirectYouToTaskPageForAction = En cliquant ici vous serez redirigé vers la page effectuant l'action
+TimeConsumedAdded = Temps consommé ajouté
+
+AdvancedKanbanTasksPlanning = Planning Scrum
+DeleteUsPlanning = Supprimer cette plannification d'US
+CantBeDeletedAlreadyInUse = Ne peut être supprimé car actuellement utilisé
+
+
+shortLetterForDaysMan = JH
+HoursByDay = Heures par jour
+ViewByUsPlanned = Passer en vue user stories planifiées
+ViewByTaskPlanned = Passer en vue tâches planifiées
+TaskConvertionToUserStoryWizard = Importer les tâches dans la gestion scrum
+ConfirmMassTaskImportIntoScrumManagementQuestion = Êtes-vous sûr de vouloir importer en gestion scrum ces %s tâche(s) sélectionnée(s) ?
+ConfirmMassTaskImportIntoScrumManagement = Importer les tâches ?
+XUserStoryCreated = %s user stories créée(s)
+XUserStorySprintCreated = %s user stories planifiée(s)
+
+
+# AdvKanban
+AdvKanban = Kanban
+AdvKanbans = Kanbans
+StatusAdvKanbanDraft = Brouillon
+StatusAdvKanbanReady = Prêt
+StatusAdvKanbanDone = Terminée
+AdvKanbanCardLinkedTo=Lié à
+AdvKanbanCardLinkedToHelp=Element Dolibarr auquel cette carte est liée
+
+
+TypeContact_advancedkanban_advkanbancard_internal_PO = Product Owner
+TypeContact_advancedkanban_advkanbancard_internal_DEV = Développeur
+
+
+
+ADVKANBAN_DEFAULT_KANBAN_CONTACT_CODE = Contact par défaut utilisé pour l'affectation à une carte du kanban
+
+ADVKANBAN_FormatQtyHourShort = %02dh%02d
+
+# Kanban PANEL
+KanbanBackgroundSetup = Réglage de l'image de fond
+KanbanBackgroundImageUrl = Url de l'image de fond du kanban
+SearchBackgroundOnUnsplash = Chercher sur unsplash...
+ClosePanel = Fermer
+KanbanInfos = Informations sur le kanban
+CreatedOn = Créé le
+KanbanSlidePanelTitle = Infos & paramètres
+
+ReadAdvKanban = Voir kanban
+WriteAdvKanban = Modifier kanban
+DeleteAdvKanban = Supprimer kanban
+
+ReadAdvKanbanCard = Voir carte
+WriteAdvKanbanCard = Modifier carte
+DeleteAdvKanbanCard = Supprimer carte
+
+RequireValidFieldToModify = Champ invalide
+RequireFieldKey = Field key required
+FieldNotFoundInObject = Champs inexistant %s
+WrongUrl = Url invalid
+ErrorScrumUserStoryTasksOverPlanned = Attention : La somme des planifications de tâches dépasse la planification de cette user story soit %s / %s.
+
+
+#
+# KANBAN VIEW
+#
+NewList = Nouvelle liste
+NewCard = Nouvelle carte
+NewKanbanCardLabel = Libellé
+KanbanBackLogList = Backlog
+KanbanDoneList = Done
+UserStoryPlannedDone = Quantité livrable (Somme des users stories réalisées)
+
+MissingSetupStepConfiguration = Étape de configuration du module manquante
+
+
+
+AdvkanbancardsCategoriesArea = Catégories des cartes du Kanban
+CantDeleteSpecialListCodeX = Il n'est pas possible de supprimer une liste de type "%s"
+ErrorDeletingKanbanList = Erreur de suppression de la liste
+DateLimit = Date limite
+
+KanbanSlideFiltersTitle = Filtres
+ClearFilters = Retirer les filtres
+DoFilters = Appliquer les filtres
+DisableFilters = Désactiver les filtres
+OpenOptionsSlidePanel = Infos & paramètres
+ToggleDarkMode = Activer / Désactiver le thème dark mode
+OpenFilterPanel = Filtres
+NeedAllSelectionOfTags = Doit contenir l'ensemble de la selection
+CardFound = Carte(s)
+advancedkanban_advkanbancard = Carte Advanced Kanban
+advancedkanban_advkanban = Advanced Kanban
+AccessKeyX = Touche d'accessibilité : %s
+ObjectLinkBreak = Element lié non trouvé : type = %s et id = %s
+EmptyElementLink=Aucun élément a lié
+BackToDolibarr = Retourner sur Dolibarr

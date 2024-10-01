@@ -13,6 +13,8 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see https://www.gnu.org/licenses/.
 
-
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048911,'advancedkanban_advkanbancard','internal','PO','AdvancedKanbanUserRolePO','1','advancedkanban');
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048912,'advancedkanban_advkanbancard','internal','DEV','AdvancedKanbanUserRoleDEV','1','advancedkanban');
+CREATE TABLE llx_categorie_advkanbancard (
+    fk_categorie integer,
+    fk_advkanbancard integer,
+    import_key integer
+);

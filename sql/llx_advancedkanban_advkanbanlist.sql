@@ -1,4 +1,4 @@
--- Copyright (C) ---Put here your own copyright and developer email---
+-- Copyright (C) 2022 John Botella <john.botella@atm-consulting.fr>
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,5 +14,20 @@
 -- along with this program.  If not, see https://www.gnu.org/licenses/.
 
 
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048911,'advancedkanban_advkanbancard','internal','PO','AdvancedKanbanUserRolePO','1','advancedkanban');
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048912,'advancedkanban_advkanbancard','internal','DEV','AdvancedKanbanUserRoleDEV','1','advancedkanban');
+CREATE TABLE llx_advancedkanban_advkanbanlist(
+	-- BEGIN MODULEBUILDER FIELDS
+	rowid integer AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+	fk_advkanban integer NOT NULL,
+	fk_rank integer NOT NULL,
+    label varchar(255),
+    ref_code varchar(20),
+    description text,
+	note_public text, 
+	note_private text, 
+	date_creation datetime NOT NULL, 
+	tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+	fk_user_creat integer NOT NULL, 
+	fk_user_modif integer, 
+	import_key varchar(14)
+	-- END MODULEBUILDER FIELDS
+) ENGINE=innodb;

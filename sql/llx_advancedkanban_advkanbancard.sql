@@ -14,5 +14,24 @@
 -- along with this program.  If not, see https://www.gnu.org/licenses/.
 
 
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048911,'advancedkanban_advkanbancard','internal','PO','AdvancedKanbanUserRolePO','1','advancedkanban');
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048912,'advancedkanban_advkanbancard','internal','DEV','AdvancedKanbanUserRoleDEV','1','advancedkanban');
+CREATE TABLE llx_advancedkanban_advkanbancard(
+	-- BEGIN MODULEBUILDER FIELDS
+	rowid integer AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+	entity integer DEFAULT 1 NOT NULL, 
+	label varchar(255), 
+	fk_rank integer NOT NULL, 
+	fk_advkanbanlist integer NOT NULL,
+	fk_element int(11) DEFAULT '0',
+	element_type varchar(255)  DEFAULT NULL,
+	date_limit datetime NULL,
+	description text,
+	note_public text, 
+	note_private text,
+	date_creation datetime NOT NULL,
+	tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+	fk_user_creat integer NOT NULL, 
+	fk_user_modif integer, 
+	import_key varchar(14), 
+	status smallint NOT NULL
+	-- END MODULEBUILDER FIELDS
+) ENGINE=innodb;

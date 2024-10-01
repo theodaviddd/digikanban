@@ -1,4 +1,4 @@
--- Copyright (C) ---Put here your own copyright and developer email---
+-- Copyright (C) 2018 John BOTELLA
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -11,8 +11,8 @@
 -- GNU General Public License for more details.
 --
 -- You should have received a copy of the GNU General Public License
--- along with this program.  If not, see https://www.gnu.org/licenses/.
+-- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048911,'advancedkanban_advkanbancard','internal','PO','AdvancedKanbanUserRolePO','1','advancedkanban');
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1048912,'advancedkanban_advkanbancard','internal','DEV','AdvancedKanbanUserRoleDEV','1','advancedkanban');
+ALTER TABLE llx_advancedkanban_advkanbancard ADD date_limit datetime NULL;
+ALTER TABLE llx_advancedkanban_advkanban ADD type varchar(40) NOT NULL DEFAULT 'std';
