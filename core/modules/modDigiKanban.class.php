@@ -164,8 +164,11 @@ class modDigiKanban extends DolibarrModules
             // CONST MODULE
             $i++ => ['DIGIKANBAN_VERSION', 'chaine', $this->version, '', 0, 'current'],
             $i++ => ['DIGIKANBAN_DB_VERSION', 'chaine', $this->version, '', 0, 'current'],
-            $i   => ['DIGIKANBAN_SHOW_PATCH_NOTE', 'integer', 1, '', 0, 'current']
-        ];
+            $i++ => ['DIGIKANBAN_SHOW_PATCH_NOTE', 'integer', 1, '', 0, 'current'],
+			$i++ => ['DIGIKANBAN_KANBAN_ADDON', 'chaine', 'mod_kanban_standard', '', 0, 'current'],
+
+		];
+
 
         // Some keys to add into the overwriting translation tables
         /*$this->overwrite_translation = array(

@@ -20,10 +20,9 @@ CREATE TABLE llx_digikanban_kanban(
     date_creation   datetime,
     tms             timestamp,
     import_key      varchar(255),
-    ref             varchar(128),
     label           varchar(255),
     description     text,
     status          tinyint(4) DEFAULT 1,
-    projectid       integer,
+    object_type     varchar(255),
     fk_user_creat   integer
 ) ENGINE=innodb;

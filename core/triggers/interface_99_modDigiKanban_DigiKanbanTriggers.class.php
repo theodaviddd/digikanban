@@ -115,17 +115,42 @@ class InterfaceDigiKanbanTriggers extends DolibarrTriggers
 
 		switch ($action) {
 			case 'KANBAN_CREATE' :
+
 				// Load Digiquali libraries
 				$elementArray = [];
 				if ($object->context != 'createfromclone') {
 					$elementArray = get_kanban_linkable_objects();
 					if (!empty($elementArray)) {
 						foreach ($elementArray as $linkableElementType => $linkableElement) {
-							if (!empty(GETPOST($linkableElement['post_name'])) && GETPOST($linkableElement['post_name']) > 0) {
-								$object->add_object_linked($linkableElement['link_name'], GETPOST($linkableElement['post_name']));
+							if (GETPOST('object_type') == $linkableElement['post_name']) {
+								$linkedObjectType = $linkableElement['link_name'];
 							}
 						}
 					}
+				}
+				$category     = new Categorie($this->db);
+
+				$category->label       = $object->ref;
+				$category->description = '';
+				$category->visible     = 1;
+				$category->type        = $linkedObjectType;
+				$result                = $category->create($user);
+
+				// create to do / doing / done categories with this parent
+				$categories = [
+					['label' => 'To Do', 'description' => $langs->trans('ToDo'), 'type' => $linkedObjectType, 'parent' => $result],
+					['label' => 'Doing', 'description' => $langs->trans('Doing'), 'type' => $linkedObjectType, 'parent' => $result],
+					['label' => 'Done', 'description' => $langs->trans('Done'), 'type' => $linkedObjectType, 'parent' => $result],
+				];
+
+				foreach ($categories as $category) {
+					$cat = new Categorie($this->db);
+					$cat->label       = $category['label'];
+					$cat->description = $category['description'];
+					$cat->visible     = 1;
+					$cat->type        = $category['type'];
+					$cat->fk_parent      = $category['parent'];
+					$cat->create($user);
 				}
 
 				$actioncomm->code = 'AC_' . strtoupper($object->element) . '_CREATE';
