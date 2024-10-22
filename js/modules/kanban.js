@@ -44,7 +44,8 @@ window.digikanban.kanban.addColumn = function() {
         </div>
     `;
 
-	kanbanBoard.appendChild(newColumn);
+	const addColumnElement = document.querySelector('.kanban-add-column');
+	kanbanBoard.insertBefore(newColumn, addColumnElement);
 }
 
 /**
