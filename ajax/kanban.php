@@ -56,3 +56,33 @@ if ($action == 'add_object_to_column') {
 		echo $object->getKanbanView();
 	}
 }
+
+if ($action == 'move_object') {
+	// get action payload
+	$payload = json_decode(file_get_contents('php://input'), true);
+	if (is_array($payload) && !empty($payload)) {
+		$order = $payload['order'];
+		if (is_array($order) && !empty($order)) {
+			foreach ($order as $columnDetails) {
+				$column_id = $columnDetails['columnId'];
+				$objects = $columnDetails['cards'];
+				$categorie->fetch($column_id);
+				$objectsInColumn = $categorie->getObjectsInCateg($object_type);
+				if (is_array($objectsInColumn) && !empty($objectsInColumn)) {
+					foreach ($objectsInColumn as $linkedObject) {
+						$object->fetch($linkedObject->id);
+						$test = $categorie->del_type($object, $object_type);
+
+					}
+
+				}
+				if (is_array($objects) && !empty($objects)) {
+					foreach ($objects as $object_id) {
+						$object->fetch($object_id);
+						$categorie->add_type($object, $object_type);
+					}
+				}
+			}
+		}
+	}
+}

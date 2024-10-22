@@ -29,7 +29,7 @@
 			print '</div>';
 
 			// Corps de la colonne où les objets sont listés
-			print '<div class="kanban-column-body" id="' . strtolower(str_replace(' ', '-', $column['label'])) . '-column" ondrop="window.digikanban.kanban.drop(event)" ondragover="window.digikanban.kanban.allowDrop(event)">';
+			print '<div class="kanban-column-body" id="' . strtolower(str_replace(' ', '-', $column['label'])) . '-column">';
 			$objectsInColumn = $column['objects'];
 
 			if (is_array($objectsInColumn) && !empty($objectsInColumn)) {
