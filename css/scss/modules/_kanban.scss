@@ -73,15 +73,10 @@ body {
 }
 
 .add-item button {
-  background-color: #ddd;
   border: none;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.add-item button:hover {
-  background-color: #ccc;
 }
 
 .kanban-add-column {
@@ -129,14 +124,75 @@ body {
 .validate-button {
   margin-left: 10px;
   padding: 5px 10px;
-  background-color: #28a745;
-  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
-.validate-button:hover {
-  background-color: #218838;
+/* Conteneur d'image */
+.info-box-img {
+  width: 100%;
+  height: auto;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
+
+.info-box-img img {
+  max-height: 120px;  /* Limite la hauteur maximale de l'image */
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Contenu de la carte */
+.info-box-content {
+  text-align: left;
+  font-size: 14px;
+  color: #555;
+}
+
+.info-box-ref {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.info-box-label {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 150px; /* Ajustez selon vos besoins */
+}
+
+
+.info-box-status {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #777;
+}
+
+/* Indicateurs de stock et prix */
+.info-box-status.amount {
+  font-size: 14px;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.info-box-status .stock {
+  display: flex;
+  align-items: center;
+  color: #ff6b6b;
+}
+
+.info-box-status .stock img {
+  margin-right: 5px;
+}
+

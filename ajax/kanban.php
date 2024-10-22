@@ -11,7 +11,7 @@ if (file_exists('../digikanban.main.inc.php')) {
 
 global $db, $user;
 
-require_once DOL_DOCUMENT_ROOT . '/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 require_once __DIR__ . '/../lib/digikanban_kanban.lib.php';
 
 $categorie = new Categorie($db);
@@ -30,6 +30,8 @@ $objectLinkedClassPath = $elementArray[$object_type]['class_path'];
 require_once DOL_DOCUMENT_ROOT . '/' . $objectLinkedClassPath;
 $objectLinked = $elementArray[$object_type]['className'];
 
+$object = new $objectLinked($db);
+
 $categorie->fetch($category_id);
 $linkedCategories = $categorie->get_filles();
 
@@ -43,8 +45,14 @@ if ($action == 'renameColumn') {
 	$categorie->update($user);
 }
 
-if ($action == 'addObject') {
-	$objectLinked->fetch($object_id);
+if ($action == 'add_object_to_column') {
+	$object->fetch($object_id);
 	$categorie->fetch($category_id);
-	$result = $objectLinked->add_type($newObject, $categorie);
+
+	$result = $categorie->add_type($object, $categorie->type);
+	if ($result < 0) {
+		echo 'coucou';
+	} else {
+		echo $object->getKanbanView();
+	}
 }

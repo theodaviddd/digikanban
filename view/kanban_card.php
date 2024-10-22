@@ -223,6 +223,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		foreach ($elementArray as $linkableElementType => $linkableElement) {
 			if ($object->object_type == $linkableElement['post_name']) {
 				$objectLinkedMetadata = $linkableElement;
+				$objectLinkedType = $linkableElementType;
 			}
 		}
 	}
@@ -254,14 +255,15 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	}
 
 
-	$objectSelector = $form->selectArray($objectLinkedMetadata['post_name'], $objectArray, GETPOST($objectLinkedMetadata['post_name']), $langs->trans('Select') . ' ' . strtolower($langs->trans($objectLinkedMetadata['langs'])), 0, 0, '', 0, 0, dol_strlen(GETPOST('fromtype')) > 0 && GETPOST('fromtype') != $objectLinkedMetadata['link_name'], '', 'maxwidth200 widthcentpercentminusxx');
 
 	$columns = [];
 	if (is_array($linkedCategories) && !empty($linkedCategories)) {
 		foreach($linkedCategories as $linkedCategory) {
+			$objectsInCategory = $linkedCategory->getObjectsInCateg($objectLinkedMetadata['tab_type']);
 			$columns[] = [
 				'label' => $linkedCategory->label,
 				'category_id' => $linkedCategory->id,
+				'objects' => $objectsInCategory
 			];
 		}
 	}

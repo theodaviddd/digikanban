@@ -2,6 +2,31 @@
 window.digikanban.kanban = {};
 
 /**
+ * La méthode appelée automatiquement par la bibliothèque EoxiaJS.
+ *
+ * @since   1.0.0
+ * @version 1.0.0
+ *
+ * @return {void}
+ */
+window.digikanban.kanban.init = function() {
+	window.digikanban.kanban.event();
+};
+
+/**
+ * La méthode contenant tous les événements pour le control.
+ *
+ * @since   1.0.0
+ * @version 1.0.0
+ *
+ * @return {void}
+ */
+window.digikanban.kanban.event = function() {
+	$(document).on('change', '.kanban-select-option', window.digikanban.kanban.selectOption);
+	$(document).on('click', '.validate-button:not(.butActionRefused)', window.digikanban.kanban.addObjectToColumn);
+
+};
+/**
  * Allow drag over a drop zone
  */
 window.digikanban.kanban.allowDrop = function(e) {
@@ -74,32 +99,43 @@ window.digikanban.kanban.editColumn = function(nameElement) {
 }
 
 /**
- * Show the select dropdown to choose an object to add
+ * Triggers when element is selected in the select box
  */
-window.digikanban.kanban.showSelect = function(button) {
-	const columnBody = button.closest('.kanban-column').querySelector('.kanban-column-body');
-	const select = document.createElement('select');
-	select.innerHTML = `
-        <option value="">Sélectionner un objet</option>
-        <!-- Ajouter des options ici -->
-    `;
+window.digikanban.kanban.selectOption = function() {
+	const validateButton = $(this).parent().find('.validate-button');
+	validateButton.removeClass('butActionRefused')
+	validateButton.removeAttr('disabled')
+}
 
-	const submitButton = document.createElement('button');
-	submitButton.innerText = "Ajouter";
-	submitButton.onclick = function() {
-		const selectedValue = select.value;
-		if (selectedValue) {
-			const newCard = document.createElement('div');
-			newCard.classList.add('kanban-card');
-			newCard.setAttribute('draggable', 'true');
-			newCard.ondragstart = window.digikanban.kanban.drag;
-			newCard.innerText = selectedValue;
-			columnBody.appendChild(newCard);
+window.digikanban.kanban.addObjectToColumn = function() {
+	// Appel PHP pour récupérer la carte de l'objet
+	const objectId = $(this).parent().find('.kanban-select-option').val();
+	const categoryId = $(this).closest('.kanban-column').attr('category-id');
+	const token = window.saturne.toolbox.getToken();
+
+	let objectType = $('#object_type').val();
+	let url = $('#ajax_actions_url').val();
+
+	url += '?action=add_object_to_column&object_id=' + objectId + '&category_id=' + categoryId + '&token=' + token + '&object_type=' + objectType;
+
+	$.ajax({
+		url: url,
+		type: 'POST',
+		processData: false,
+		contentType: false,
+		success: function(resp) {
+			// Add response (the object card) into the column
+			let kanbanColumn = $('.kanban-column[category-id="' + categoryId + '"]');
+			kanbanColumn.find('.kanban-column-body').append(resp);
+
+			// Rebind drag-and-drop events for the newly added card
+			$('.info-box').attr('draggable', 'true');
+			$('.info-box').on('dragstart', function(event) {
+				window.digikanban.kanban.drag(event.originalEvent);
+			});
+		},
+		error: function() {
+			console.log("Failed to add object to column.");
 		}
-		select.remove();
-		submitButton.remove();
-	};
-
-	columnBody.appendChild(select);
-	columnBody.appendChild(submitButton);
+	});
 }
