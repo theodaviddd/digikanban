@@ -54,7 +54,6 @@ window.digikanban.kanban.event = function() {
  * @returns {void}
  */
 window.digikanban.kanban.saveCardOrder = function() {
-	// Collect card order and column details
 	let objectType = $('#object_type').val();
 	let cardOrder = [];
 	$('.kanban-column').each(function() {
@@ -62,7 +61,6 @@ window.digikanban.kanban.saveCardOrder = function() {
 		let cards = [];
 
 		$(this).find('.info-box').each(function() {
-			console.log($(this).find('checkbox'))
 			cards.push($(this).find('.checkforselect').attr('value'));
 		});
 
@@ -73,8 +71,7 @@ window.digikanban.kanban.saveCardOrder = function() {
 	});
 	let url = $('#ajax_actions_url').val();
 
-	// Perform AJAX to save the card order on the server side
-	let token = window.saturne.toolbox.getToken(); // Adjust as per your application
+	let token = window.saturne.toolbox.getToken();
 	$.ajax({
 		url: url + "?action=move_object&token=" + token + '&object_type=' + objectType,
 		type: "POST",
@@ -125,7 +122,6 @@ window.digikanban.kanban.editColumn = function(nameElement) {
 	input.value = currentName;
 	input.classList.add('column-name-input');
 
-	// Handle the "Enter" key event to save the new name
 	input.addEventListener('keypress', function(event) {
 		if (event.key === 'Enter') {
 			nameElement.innerText = input.value;
@@ -134,7 +130,6 @@ window.digikanban.kanban.editColumn = function(nameElement) {
 		}
 	});
 
-	// Replace the current column name with the input
 	nameElement.style.display = 'none';
 	nameElement.parentNode.insertBefore(input, nameElement);
 	input.focus();
@@ -150,7 +145,6 @@ window.digikanban.kanban.selectOption = function() {
 }
 
 window.digikanban.kanban.addObjectToColumn = function() {
-	// Appel PHP pour récupérer la carte de l'objet
 	const objectId = $(this).parent().find('.kanban-select-option').val();
 	const categoryId = $(this).closest('.kanban-column').attr('category-id');
 	const token = window.saturne.toolbox.getToken();
@@ -158,20 +152,45 @@ window.digikanban.kanban.addObjectToColumn = function() {
 	let objectType = $('#object_type').val();
 	let url = $('#ajax_actions_url').val();
 
+	window.saturne.loader.display($(this).parent().find('.kanban-select-option'));
 	url += '?action=add_object_to_column&object_id=' + objectId + '&category_id=' + categoryId + '&token=' + token + '&object_type=' + objectType;
-
 	$.ajax({
 		url: url,
 		type: 'POST',
 		processData: false,
 		contentType: false,
 		success: function(resp) {
-			// Add response (the object card) into the column
 			let kanbanColumn = $('.kanban-column[category-id="' + categoryId + '"]');
 			kanbanColumn.find('.kanban-column-body').append(resp);
+			window.digikanban.kanban.refreshSelector()
+
+			$('.wpeo-loader').removeClass('wpeo-loader');
 		},
 		error: function() {
 			console.log("Failed to add object to column.");
 		}
 	});
+
 }
+
+window.digikanban.kanban.refreshSelector = function() {
+	let token = window.saturne.toolbox.getToken();
+	let querySeparator = window.saturne.toolbox.getQuerySeparator(document.URL);
+	let form = $('.kanban-board').find('form');
+	$.ajax({
+		url: document.URL + querySeparator + 'token=' + token,
+		type: 'POST',
+		processData: false,
+		contentType: false,
+		success: function(resp) {
+			form.each(function() {
+				let selectorId = $(this).find('select').attr('id')
+				$(this).replaceWith($(resp).find('#' + selectorId).closest('form')); // Remplacer uniquement si le nouveau sélecteur existe
+			});
+		},
+		error: function() {
+			console.log("Failed to refresh the selectors.");
+		}
+	});
+};
+

@@ -228,38 +228,16 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		}
 	}
 
-	require_once DOL_DOCUMENT_ROOT . '/' . $objectLinkedMetadata['class_path'];
-	if ((dol_strlen($objectLinkedMetadata['fk_parent']) > 0 && GETPOST($objectLinkedMetadata['parent_post']) > 0)) {
-		$objectFilter = ['customsql' => $objectLinkedMetadata['fk_parent'] . ' = ' . GETPOST($objectLinkedMetadata['parent_post'])];
-	} else {
-		$objectFilter = [];
-	}
-	$objectList = saturne_fetch_all_object_type($objectLinkedMetadata['className'], '', '', 0, 0, $objectFilter);
-
-	if (is_array($objectList) && !empty($objectList)) {
-		foreach ($objectList as $objectSingle) {
-			$objectName = '';
-			$nameField = $objectLinkedMetadata['name_field'];
-			if (strstr($nameField, ',')) {
-				$nameFields = explode(', ', $nameField);
-				if (is_array($nameFields) && !empty($nameFields)) {
-					foreach ($nameFields as $subnameField) {
-						$objectName .= $objectSingle->$subnameField . ' ';
-					}
-				}
-			} else {
-				$objectName = $objectSingle->$nameField;
-			}
-			$objectArray[$objectSingle->id] = $objectName;
-		}
-	}
-
-
-
+	$objectFilter = [];
 	$columns = [];
 	if (is_array($linkedCategories) && !empty($linkedCategories)) {
 		foreach($linkedCategories as $linkedCategory) {
 			$objectsInCategory = $linkedCategory->getObjectsInCateg($objectLinkedMetadata['tab_type']);
+			if (is_array($objectsInCategory) && !empty($objectsInCategory)) {
+				foreach($objectsInCategory as $objectInCategory) {
+					$objectFilter[] = $objectInCategory->id;
+				}
+			}
 			$columns[] = [
 				'label' => $linkedCategory->label,
 				'category_id' => $linkedCategory->id,
@@ -267,6 +245,31 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			];
 		}
 	}
+	require_once DOL_DOCUMENT_ROOT . '/' . $objectLinkedMetadata['class_path'];
+
+	$objectList = saturne_fetch_all_object_type($objectLinkedMetadata['className']);
+
+	if (is_array($objectList) && !empty($objectList)) {
+		foreach ($objectList as $objectSingle) {
+			if (!in_array($objectSingle->id, $objectFilter)) {
+				$objectName = '';
+				$nameField = $objectLinkedMetadata['name_field'];
+				if (strstr($nameField, ',')) {
+					$nameFields = explode(', ', $nameField);
+					if (is_array($nameFields) && !empty($nameFields)) {
+						foreach ($nameFields as $subnameField) {
+							$objectName .= $objectSingle->$subnameField . ' ';
+						}
+					}
+				} else {
+					$objectName = $objectSingle->$nameField;
+				}
+				$objectArray[$objectSingle->id] = $objectName;
+			}
+		}
+	}
+
+
 
 	include_once __DIR__ . '/../core/tpl/kanban_view.tpl.php';
 

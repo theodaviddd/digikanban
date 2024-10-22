@@ -19,6 +19,8 @@ body {
   padding: 10px;
   width: 30%;
   min-height: 400px;
+  max-height: 600px; /* Hauteur maximale définie */
+  overflow-y: auto;  /* Permet le défilement vertical si le contenu dépasse */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 

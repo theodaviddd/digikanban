@@ -18,12 +18,13 @@
 
 		foreach ($columns as $column) {
 			$objectSelector = $form->selectArray($objectLinkedMetadata['post_name'] . $column['category_id'], $objectArray, GETPOST($objectLinkedMetadata['post_name']), $langs->trans('Select') . ' ' . strtolower($langs->trans($objectLinkedMetadata['langs'])), 0, 0, '', 0, 0, dol_strlen(GETPOST('fromtype')) > 0 && GETPOST('fromtype') != $objectLinkedMetadata['link_name'], '', 'maxwidth200 widthcentpercentminusxx kanban-select-option');
-
+			$selectorName = $objectLinkedMetadata['post_name'] . $column['category_id'];
 			print '<div class="kanban-column" category-id="'. $column['category_id'] .'">';
 			print '<div class="kanban-column-header">';
 			print '<input type="hidden" id="ajax_actions_url" value="' . $ajaxActionsUrl . '">';
 			print '<input type="hidden" id="token" value="' .  newToken() . '">';
 			print '<input type="hidden" id="object_type" value="' . $objectLinkedType . '">';
+			print '<input type="hidden" id="selector_name" value="' . $selectorName . '">';
 			print '<span class="column-name" ondblclick="window.digikanban.kanban.editColumn(this)">' . htmlspecialchars($column['label']) . '</span>';
 			print '<i class="fas fa-pencil-alt edit-icon" onclick="window.digikanban.kanban.editColumn(this.previousElementSibling)"></i>';
 			print '</div>';
